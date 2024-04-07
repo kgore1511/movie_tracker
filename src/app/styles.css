@@ -11,33 +11,69 @@
 
 .carousel {
     display: flex;
-    justify-content: space-evenly;
-    height:150px;
+    justify-content: flex-start;
+    max-width: 80% !important
    
 }
 
 .image {
-    width:100%;
+    width:80% !important;
     height:25rem;
     object-fit: fill;
-    background: linear-gradient(to bottom,rgba(0,0,0,0),rgba(0,0,0,7));
 }
-    .card{
-        margin: 20px;
-        width:180px;
-        height:240px;
-    }
 
-    .card_image {
-        width:210px;
-        height: 260px;
-        object-fit: cover;
-        border-radius: 15px;
-    }
+.searchbar {
+    width: 60%;
+    display: flex;
+}
 
+.combobox {
+    background: #35012C;
+    color: #fff;
+}
+
+.suggestion_row {
+    display: flex;
+    margin: 20px;
+    align-items: center;
+    gap: 10px;
+}
+
+.MuiInputBase-root {
+    width: 100% !important;
+}
+
+.suggestionbox {
+    position: absolute;
+    background: #35012C;
+    width: 100%;
+    max-height: 300px;
+    overflow-y: scroll;
+}
+
+.light_text {
+    color: rgb(156, 156, 156);
+    font-family: Okra, Helvetica, sans-serif;
+    font-size: smaller
+}
+
+.search_name {
+    font-weight: 700;
+    font-family: sans-serif;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+   
     @media only screen and (max-width: 600px) {
+        .container {
+            height:350px
+        }
         .card{
-            margin: 20px;
+           
             width:120px;
             height:160px;
         }

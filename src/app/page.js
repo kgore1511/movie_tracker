@@ -1,54 +1,53 @@
 "use client"
-import React, { useContext, useEffect } from 'react'
-import Image from 'next/image';
-import './styles.css'
-import { useState, useRef } from 'react';
-import Slider from 'react-slick';
-import "slick-carousel/slick/slick.css";
-import { Card } from '@mui/material';
-import "slick-carousel/slick/slick-theme.css";
-import logo from './1.jpg'
-import logo1 from './bridge.jpg'
-import axios from 'axios'
+import React, { useContext, useEffect ,useState} from 'react'
 import './css/base.css'
 import './css/embla.css'
+import  filterHeader from '../app/filterHeader';
+import PrimarySearchAppBar from './PrimarySearchAppBar';
 import EmblaCarousel from "./EmblaCarousel";
 import { useGlobalContext } from './context'; 
+import { Backdrop,CircularProgress } from '@mui/material';
+import EmblaCarouselMain from './mainCarousel/EmblaCarouselMain';
 function page() {
-  const [genres,setGenres] = useState([])
-  const [data,setData] = useState([])
+  const [open,setOpen] = useState(false)
   const OPTIONS = { dragFree: true }
+const {movies,movieIsLoading,genres,popularMovies,nowPlaying,nowPlayingIsLoading,getPopularMovies,getGenres,getNowPlaying,getMovies}= useGlobalContext()
 
-    
-const {movies,getMovies}= useGlobalContext()
   useEffect(()=> {
-    getMovies()
+    getGenres()
+    getNowPlaying()
+    //getPopularMovies()
  },[])
- 
-  var mainCarouselSettings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    autoplay: true,
-    slidesToShow: 1,
-    swipeToSlide: true,
-  };
+useEffect(()=> {
+  for(let x=0;x<genres.length && x<2;x++) getMovies(genres[x])
+},[genres])
 
+
+const handleClose = () => {
+  setOpen(false);
+};
+const handleOpen = () => {
+  setOpen(true);
+};
+ 
   return (
     <>
-
+  
+    {movieIsLoading ? <Backdrop
+  sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+  open={movieIsLoading}
+><CircularProgress color="inherit" /></Backdrop>:
+<>
     <div className='container' >
-     <center> <Slider arrows={false} classname='carousel' {...mainCarouselSettings}>  
-     <Card  variant="outlined">
-     <div><Image  className='image' src={logo} /></div>  
-          </Card>
-          <Card  variant="outlined">
-          <Image  className='image' src={logo1} />
-        </Card>
-      </Slider></center>
+    <EmblaCarouselMain slides={nowPlaying}  />
     </div>
+    {Object.keys(movies).map(key => (
+      
+    <div> <EmblaCarousel slides={movies} Key={key} options={OPTIONS} /></div> 
+    )
+  )}</>
+  }
     
-    <div> <EmblaCarousel slides={movies} options={OPTIONS} /></div>     
         
         </>
   )
