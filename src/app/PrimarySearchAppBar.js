@@ -75,7 +75,6 @@ const searchTypeRef=React.useRef('multi')
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
  
   const scrollDirection=filterHeader()
-  console.log(searchTypeRef.current.value)
 
   function debounce(func, delay) {
     let timeoutId;
@@ -185,7 +184,7 @@ const searchTypeRef=React.useRef('multi')
 
   return (
     <Box >
-      <AppBar sx={{'& .MuiToolbar-root': scrollDirection === "up" ? {background:'transparent', position:"sticky", top:'0', "z-index":'1'}: {background:'#11001C', position:"sticky", top:'0', "z-index":'1'}}} >
+      <AppBar sx={{'& .MuiToolbar-root': scrollDirection === "down" ? {backgroundColor:'transparent', position:"sticky", top:'0', "z-index":'1'}: {background:'#11001C', position:"sticky", top:'0', "z-index":'1'}}} >
         <Toolbar style={{display:'flex',justifyContent:'space-between'}}>
           <div className='logo'>
           <IconButton
@@ -212,7 +211,7 @@ const searchTypeRef=React.useRef('multi')
           <option value='movie'>Movies</option>
           <option value='tv'>TV Shows</option>
          </select>
-          <Search style={{marginLeft:'0px'}}>
+          <Search >
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>

@@ -39,7 +39,7 @@ const opts = {
 
 
   return (
-    <div className='container'>
+    <div className='container_detail'>
       { movieDetailIsLoading ? <Backdrop
   sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
   open={movieDetailIsLoading}

@@ -30,6 +30,7 @@
 .combobox {
     background: #35012C;
     color: #fff;
+    display: block;
 }
 
 .suggestion_row {
@@ -72,10 +73,17 @@
         .container {
             height:350px
         }
+
         .card{
            
             width:120px;
             height:160px;
+        }
+
+        .combobox {
+            background: #35012C;
+            color: #fff;
+            display: none;
         }
     
         .card_image {
