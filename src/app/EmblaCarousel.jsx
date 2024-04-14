@@ -1,7 +1,7 @@
 import React from 'react'
 import { Skeleton } from '@mui/material'
 import { redirect ,useRouter} from 'next/navigation'
-import noImage from './[movieId]/no-image-icon.jpg'
+import noImage from './[showtype]/[movieId]/no-image-icon.jpg'
 import Image from 'next/image'
 import {
   PrevButton,
@@ -48,7 +48,7 @@ const EmblaCarousel = (props) => {
       
       <div className="embla__slide" key={index}>
         
-      <div className="embla__slide__number" onClick={()=>push('/'+item.id)}>
+      <div className="embla__slide__number" onClick={()=>push('/movie/'+item.id)}>
         {item?.poster_path?<Image width={200} height={150} id='img' alt='Loading...' className='carousel_image' src={item?.poster_path? 'http://image.tmdb.org/t/p/w500'+item?.poster_path:noImage} />:
         <Skeleton variant="rounded" width='18rem' height='20rem' ><p className='title'>{item.titleText?.text}</p></Skeleton>
         }</div>

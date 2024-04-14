@@ -1,6 +1,7 @@
 "use client"
 import React, { useEffect } from 'react'
-import { useGlobalContext } from '../context'
+import { useRouter } from 'next/navigation'
+import { useGlobalContext } from '../../context'
 import YouTube from 'react-youtube'
 import { Rating } from '@mui/material'
 import Accordion from '@mui/material/Accordion';
@@ -13,16 +14,18 @@ import Image from 'next/image'
 import noImage from './no-image-icon.jpg'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import {Skeleton,Backdrop,CircularProgress} from '@mui/material'
+import Person from './Person'
 import './styles.css'
 function page({params}) {
-  
-const {getMovieById,movieDetails,movieDetailIsLoading,getWatchProvider,watchProvider,watchProviderLoading}= useGlobalContext()
+  const route= useRouter()
+const {getDetailById,detail,detailIsLoading,getWatchProvider,watchProvider,watchProviderLoading}= useGlobalContext()
 
 useEffect(()=> {
-  getMovieById(params.movieId)
-  getWatchProvider(params.movieId)
+  getDetailById(params.showtype,params.movieId)
+  if(params.showtype!='person') getWatchProvider(params.showtype,params.movieId)
 },[])
 
+console.log(detail)
 
 const opts = {
     height: '300',
@@ -40,26 +43,28 @@ const opts = {
 
   return (
     <div className='container_detail'>
-      { movieDetailIsLoading ? <Backdrop
+      
+      { detailIsLoading ? <Backdrop
   sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-  open={movieDetailIsLoading}
+  open={detailIsLoading}
 ><CircularProgress color="inherit" /></Backdrop>:
-        movieDetails?.title && <div className='content'>
+        <div className='content'>
+       { params.showtype=='movie' ?<div>  
           
       <div className='card'>
-        { movieDetails.videos.results.length>0? 
-        <div className='youtube_player'><YouTube videoId={movieDetails.videos?.results[0]?.key} opts={opts}  /></div>:
-        <div className='image_card'><img className='image' src={'http://image.tmdb.org/t/p/w500'+movieDetails.backdrop_path} /></div>
+        { detail?.videos?.results.length>0? 
+        <div className='youtube_player'><YouTube videoId={detail.videos?.results[0]?.key} opts={opts}  /></div>:
+        <div className='image_card'><img className='image' src={'http://image.tmdb.org/t/p/w500'+detail.backdrop_path} /></div>
       }
       </div>
       <div className='details'>
-      <div className='detail_title'>{movieDetails.title} <span>{movieDetails.release_date} </span></div>
+      <div className='detail_title'>{detail.title} <span>{detail.release_date} </span></div>
       <div>
       {
-        movieDetails?.genres.map((genre)=><span className='genre'>{genre.name}</span>)
+        detail?.genres?.map((genre)=><span className='genre'>{genre.name}</span>)
       }
       </div>
-      <div><Rating name="half-rating-read" value={movieDetails.vote_average} readOnly precision={0.2} defaultValue={2} max={10} /></div>
+      <div><Rating name="half-rating-read" value={detail.vote_average} readOnly precision={0.2} defaultValue={2} max={10} /></div>
       Available on <div>
       <div className='stream_panel'>
         Stream 
@@ -95,7 +100,7 @@ const opts = {
         }
         </div>
         </div>
-      <div>{movieDetails.overview}</div>
+      <div>{detail.overview}</div>
        <div className='cast'>
       <Accordion sx={{width:'100%'}}>
         <AccordionSummary
@@ -108,8 +113,8 @@ const opts = {
         <AccordionDetails>
         <Typography className='cast_detail'>
       {
-      movieDetails.credits.cast.map(i=> (
-          <div className='celebrity_image_card'>
+      detail?.credits?.cast.map(i=> (
+          <div className='celebrity_image_card' onClick={()=>(route.push('/person/'+i.id))}>
             <div  className="cast_image">
           <Image  width={0}
   height={0}
@@ -135,11 +140,11 @@ const opts = {
         <AccordionDetails>
         <Typography className='cast_detail'>
       {
-      movieDetails.recommendations.results.map(i=> (
-          <div className='related_image_card'>
+      detail?.recommendations?.results?.map(i=> (
+          <div className='related_image_card' onClick={()=>(route.push('/movie/'+i.id))}>
             <div className='related_image'>
-          <Image  fill  src={'http://image.tmdb.org/t/p/w500'+i.poster_path} alt='loading'/>
-          <div className='cast_name'>{i.title}</div></div></div>    
+          <Image  fill  src={'http://image.tmdb.org/t/p/w500'+i.poster_path} alt='loading'/></div>
+          <div className='cast_name'>{i.title}</div></div>    
       ))
       }
        </Typography>
@@ -150,7 +155,7 @@ const opts = {
       <div>
         
         {
-          movieDetails.reviews.results.map((i)=> (
+          detail?.reviews?.results?.map((i)=> (
             <div >
               <div className='user_icon'><AccountCircleIcon />{i.author}</div>
               <div><Rating name="half-rating-read" value={i.author_details.rating} readOnly precision={0.2} defaultValue={2} max={10} /></div>
@@ -160,7 +165,7 @@ const opts = {
           ))
         }
       </div>
-      </div>
+      </div></div>:<Person data={detail}/> }
       </div>
 }
     </div>

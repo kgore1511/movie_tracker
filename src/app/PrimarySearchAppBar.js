@@ -19,7 +19,8 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import  filterHeader from '../app/filterHeader';
 import { useGlobalContext } from './context';
 import Image from 'next/image';
-import noImage from './[movieId]/no-image-icon.jpg'
+import noImage from './[showtype]/[movieId]/no-image-icon.jpg'
+import { useRouter } from 'next/navigation'
 import './styles.css'
 import { Select } from '@mui/material';
 
@@ -75,6 +76,7 @@ const searchTypeRef=React.useRef('multi')
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
  
   const scrollDirection=filterHeader()
+  const router = useRouter()
 
   function debounce(func, delay) {
     let timeoutId;
@@ -205,6 +207,7 @@ const searchTypeRef=React.useRef('multi')
             MUI
           </Typography>
           </div>
+          
           <div className='searchbar'>
          <select ref={searchTypeRef} onChange={(e)=>{searchTypeRef.current.value=e.target.value}} className='combobox'>
          <option selected value='multi'>All</option>
@@ -221,14 +224,14 @@ const searchTypeRef=React.useRef('multi')
               inputProps={{ 'aria-label': 'search' }}
             />
           
-          <div className='suggestionbox'>
+          <div id='suggestionbox' className='suggestionbox' >
             {
               searchResults.map((i)=> (
                 <div className='suggestion_row'>
                 <div> <Image width='50' borderRadius='10px' height='50' src={i.profile_path? 'http://image.tmdb.org/t/p/w500'+i.profile_path:
                 i.poster_path? 'http://image.tmdb.org/t/p/w500'+i.poster_path:
                 noImage} /></div>
-                <div>
+                <div onClick={()=>router.push('/'+i.media_type+'/'+i.id)}>
                 <div className='search_name' >{i.name?<div> {i.name} </div>:<div>{i.title}</div>}</div>
                 <div className='light_text'>{i.media_type}</div>
                 <div className='light_text'>{i.release_date}</div>

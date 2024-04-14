@@ -1,5 +1,6 @@
 import React from 'react'
 import './emblamain.css'
+import Autoplay from 'embla-carousel-autoplay'
 import { DotButton, useDotButton } from './EmblaCarouselDotButtonMain'
 import {
   PrevButton,
@@ -10,7 +11,9 @@ import useEmblaCarousel from 'embla-carousel-react'
 
 const EmblaCarouselMain = (props) => {
   const { slides, options } = props
-  const [emblaRef, emblaApi] = useEmblaCarousel(options)
+  const [emblaRef, emblaApi] = useEmblaCarousel(options,[
+    Autoplay()
+  ])
 
   const { selectedIndex, scrollSnaps, onDotButtonClick } =
     useDotButton(emblaApi)

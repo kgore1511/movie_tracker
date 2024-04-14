@@ -13,12 +13,11 @@
     justify-content: center;
     flex-direction: column;
     flex-wrap: wrap;
+    background-color: #11001C;
 }
 
 .card {
-    margin-top: 68px;
     width:100%;
-    
 }
 .image_card {
     display: flex;
@@ -53,7 +52,6 @@
     display: flex;
     gap: 5px;
     flex-direction: column;
-    background-color: #11001C;
     padding: 10px;
     
 }
@@ -126,11 +124,13 @@
 .stream_logo {
     width:50px;
     height:50px;
+    border-radius: 10px;
 }
 
 .stream_panel {
     display: flex;
     margin: 12px;
+    align-items: center;
     gap:10px
 }
 
@@ -182,4 +182,35 @@
         height: 20vh;
     }
     
+}
+
+.person {
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+}
+
+.person_container {
+    display: flex;
+}
+
+.person_image {
+    min-width:400px;
+    height: 500px;
+    position:relative;
+    margin: 5px;
+}
+
+.person_shows {
+    display: grid;
+    justify-content: space-evenly;
+    grid-template-columns: repeat(auto-fill, 210px);
+    grid-gap: 10px;
+    flex-wrap: wrap; 
+}
+
+.person_image_card {
+    width:200px;
+    height: 250px;
+    position: relative;
 }

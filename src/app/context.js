@@ -11,8 +11,8 @@ const AppProvider = ({children}) => {
     const [genresIsLoading,setGenresIsLoading] = useState(false)
     const [popularMovies,setPopularMovies] = useState([])
     const [popularMovieIsLoading,setPopularMoviesIsLoading] = useState(false)
-    const [movieDetailIsLoading,setMovieDetailIsLoading] = useState(false)
-    const [movieDetails,setMovieDetails] =useState({})
+    const [detailIsLoading,setDetailIsLoading] = useState(false)
+    const [detail,setDetail] =useState({})
     const [watchProvider,setWatchProvider] = useState({})
     const [watchProviderLoading,setWatchProviderLoading] = useState(false)
     const [nowPlaying,setNowPlaying] = useState([])
@@ -40,11 +40,11 @@ const AppProvider = ({children}) => {
       })
     }
 
-const getMovieById=(id)=> {
-  setMovieDetailIsLoading(true)
-  axios.get(base_url+'/3/movie/'+id+'?&append_to_response=videos,credits,recommendations,reviews,similiar&api_key='+api_key).then(res =>{
-    setMovieDetails(res.data)
-    setMovieDetailIsLoading(false)
+const getDetailById=(showtype,id)=> {
+  setDetailIsLoading(true)
+  axios.get(base_url+'/3/'+showtype+'/'+id+'?&append_to_response=videos,credits,recommendations,reviews,similiar&api_key='+api_key).then(res =>{
+    setDetail(res.data)
+    setDetailIsLoading(false)
   }).catch(err => {
     console.log(err)
   })
@@ -92,11 +92,11 @@ const getMovieById=(id)=> {
       })
     }
 
-  const getWatchProvider=(id)=> {
+  const getWatchProvider=(showtype,id)=> {
     setWatchProviderLoading(true)
     axios.request({
       method: 'GET',
-      url: base_url+'/3/movie/'+id+'/watch/providers?api_key='+api_key
+      url: base_url+'/3/'+showtype+'/'+id+'/watch/providers?api_key='+api_key
     }).then(response => {
       setWatchProviderLoading(false)
       setWatchProvider(response.data.results)
@@ -112,8 +112,8 @@ const getMovieById=(id)=> {
       popularMovieIsLoading,
       movies,
       movieIsLoading,
-      movieDetails,
-      movieDetailIsLoading,
+      detail,
+      detailIsLoading,
       watchProvider,
       watchProviderLoading,
       nowPlayingIsLoading,
@@ -123,7 +123,7 @@ const getMovieById=(id)=> {
       getNowPlaying,
       getPopularMovies,
       getMovies,
-      getMovieById,
+      getDetailById,
       getWatchProvider,
       getGenres,
       getNowPlaying,
