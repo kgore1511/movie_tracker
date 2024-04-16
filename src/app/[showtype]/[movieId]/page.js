@@ -54,7 +54,7 @@ const opts = {
       <div className='card'>
         { detail?.videos?.results.length>0? 
         <div className='youtube_player'><YouTube videoId={detail.videos?.results[0]?.key} opts={opts}  /></div>:
-        <div className='image_card'><img className='image' src={'http://image.tmdb.org/t/p/w500'+detail.backdrop_path} /></div>
+        <div className='image_card'><Image fill src={'http://image.tmdb.org/t/p/w500'+detail.backdrop_path} /></div>
       }
       </div>
       <div className='details'>
