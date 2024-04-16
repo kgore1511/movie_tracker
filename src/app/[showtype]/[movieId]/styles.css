@@ -20,6 +20,10 @@
     width:100%;
     height: 350px;
 }
+
+.person_detail >div {
+    text-align: center;
+}
 .image_card {
     display: flex;
     justify-content: center;
@@ -35,8 +39,8 @@
 }
 
 .detail_title {
-    
-       font-size: 4vmax;
+    text-align: center;
+       font-size: 30px;
     font-weight: 600;
     color: white;
 }
@@ -51,7 +55,10 @@
     gap: 5px;
     flex-direction: column;
     padding: 10px;
-    
+}
+
+.read-more-button {
+    color: blue;
 }
 
 .genre {
@@ -59,6 +66,7 @@
     margin: 5px;
     border-radius: 10px;
     padding: 3px 5px;
+    display: inline;
 }
 
 .cast {
@@ -143,6 +151,39 @@
     
 }
 
+
+.person {
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+}
+
+.person_container {
+    display: flex;
+    flex-direction: row;
+}
+
+.person_image {
+    min-width: 300px;
+    height: 300px;
+    position:relative;
+    margin: 5px;
+}
+
+.person_shows {
+    display: grid;
+    justify-content: space-evenly;
+    grid-template-columns: repeat(auto-fill, 210px);
+    grid-gap: 10px;
+    flex-wrap: wrap; 
+}
+
+.person_image_card {
+    width:200px;
+    height: 250px;
+    position: relative;
+}
+
 @media only screen and (max-width: 600px) { 
     .person {
         display: flex;
@@ -152,7 +193,17 @@
     
     .person_container {
         display: flex;
+        flex-direction: column;
+        align-items: center;
     }
+
+    .person_image {
+        min-width: 200px;
+        height: 200px;
+        position:relative;
+        margin: 5px;
+    }
+    
 }
 
 @media only screen and (max-width: 480px) { 
@@ -194,34 +245,4 @@
 
     
     
-}
-
-.person {
-    display: flex;
-    flex-direction: row;
-    color: #fff;
-}
-
-.person_container {
-    display: flex;
-}
-
-.person_image {
-    min-width: 300px;
-    position:relative;
-    margin: 5px;
-}
-
-.person_shows {
-    display: grid;
-    justify-content: space-evenly;
-    grid-template-columns: repeat(auto-fill, 210px);
-    grid-gap: 10px;
-    flex-wrap: wrap; 
-}
-
-.person_image_card {
-    width:200px;
-    height: 250px;
-    position: relative;
 }
