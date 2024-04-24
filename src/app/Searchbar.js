@@ -1,14 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import SearchIcon from '@mui/icons-material/Search';
 import './styles.css'
-import  {Select}  from '@mui/material';
+import  {InputAdornment, Select}  from '@mui/material';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import Image from 'next/image';
 import noImage from './[showtype]/[movieId]/no-image-icon.jpg'
 import { useGlobalContext } from './context';
 import { useRouter } from 'next/navigation';
-
+import CloseIcon from '@mui/icons-material/Close';
+import { Close } from '@mui/icons-material';
 const SearchIconWrapper = styled('div')(({ theme }) => ({
     padding: theme.spacing(0, 2),
     height: '100%',
@@ -51,6 +52,7 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   }));
 
 export const Searchbar=()=> {
+  const [visible,setVisible] = useState(false)
   const router = useRouter()
     const {getSearchResult,searchResults} = useGlobalContext()
     const searchTypeRef=React.useRef('multi')
@@ -80,13 +82,28 @@ export const Searchbar=()=> {
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
+
             <StyledInputBase
+            fullWidth={true}
               placeholder="Search…"
-              onChange={(e)=>searchHandler(e)}
+              id='search_input'
+              onChange={(e)=>{
+                searchHandler(e)
+                if(e.target.value.length>0) setVisible(true)
+                else setVisible(false)
+              }}
               inputProps={{ 'aria-label': 'search' }}
-            />
+              sx={{
+                '& .MuiInputBase-input':
+                {width:'100% !important'}
+              }}
+              endAdornment={visible && <InputAdornment position="end"><CloseIcon onClick={()=>{
+                document.getElementById('search_input').value=''
+                setVisible(false)
+              }} sx={{color:'#fff'}} /></InputAdornment>}
+            ></StyledInputBase>
           
-          <div id='suggestionbox' className='suggestionbox' >
+          {visible && <div id='suggestionbox' className='suggestionbox' >
             {
               searchResults?.map((i)=> (
                 <div className='suggestion_row'>
@@ -101,7 +118,7 @@ export const Searchbar=()=> {
                 </div>
               ))
             }
-          </div>
+          </div>}
           </Search>
           </div>
     )

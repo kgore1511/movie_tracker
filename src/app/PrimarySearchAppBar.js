@@ -17,7 +17,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import  filterHeader from '../app/filterHeader';
-
+import TemporaryDrawer from './component/Drawer';
 import Image from 'next/image';
 import noImage from './[showtype]/[movieId]/no-image-icon.jpg'
 import { useRouter } from 'next/navigation'
@@ -30,8 +30,10 @@ import { Select } from '@mui/material';
 
 
 
+
 export default function PrimarySearchAppBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [open, setOpen] = React.useState(false);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
  //const {movies,movieIsLoading,genres,popularMovies,nowPlaying,nowPlayingIsLoading,getPopularMovies,getGenres,getNowPlaying,getMovies}= useGlobalContext()
 
@@ -42,6 +44,12 @@ export default function PrimarySearchAppBar() {
   const scrollDirection=filterHeader()
   const router = useRouter()
 
+
+ 
+  
+  const toggleDrawer = (newOpen) => () => {
+    setOpen(newOpen);
+  };
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -146,9 +154,11 @@ export default function PrimarySearchAppBar() {
             color="inherit"
             aria-label="open drawer"
             sx={{ mr: 2 }}
+            onClick={toggleDrawer(true)}
           >
             <MenuIcon />
           </IconButton>
+          <TemporaryDrawer toggleDrawer={toggleDrawer} open={open} setOpen={setOpen} />
           <Typography
             variant="h6"
             noWrap
@@ -159,7 +169,7 @@ export default function PrimarySearchAppBar() {
           </Typography>
           </div>
           <div className='web_view_search'>
-          <Searchbar  />
+          <Searchbar id='searchbar' />
 </div>
 
           <div>

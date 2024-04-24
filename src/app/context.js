@@ -7,6 +7,8 @@ const AppContext = React.createContext()
 const AppProvider = ({children}) => {
     const [movies,setMovies] = useState({})
     const [movieIsLoading,setMovieIsLoading] = useState(false)
+    const [trendingMovies,setTrendingMovies] = useState([])
+    const [trendingMoviesIsLoading,setTrendingMoviesIsLoading] = useState(false)
     const [genres,setGenres] = useState([])
     const [genresIsLoading,setGenresIsLoading] = useState(false)
     const [popularMovies,setPopularMovies] = useState([])
@@ -22,10 +24,22 @@ const AppProvider = ({children}) => {
     const base_url=process.env.NEXT_PUBLIC_BASE_URL
     const api_key=process.env.NEXT_PUBLIC_API_KEY
     
+    
+    const getTrendingMovies=(type)=> {
+      setTrendingMoviesIsLoading(true)
+      axios.get(base_url+'/3/trending/'+type+'/day?language=en-US&api_key='+api_key).then(res=> {
+        setTrendingMovies(res.data)
+        setTrendingMoviesIsLoading(false)
+      }).catch(err =>{
+        console.log(err)
+      })
+    } 
+    
     const getPopularMovies=()=> {
       setPopularMoviesIsLoading(true)
       axios.get(base_url+'/3/movie/upcoming?api_key='+api_key+'&language=hi-IN&page=1&region=IN').then(res=> {
         setPopularMovies(res.data)
+        setPopularMoviesIsLoading(false)
       }).catch(err =>{
         console.log(err)
       })
@@ -35,6 +49,7 @@ const AppProvider = ({children}) => {
       setGenresIsLoading(true)
       axios.get(base_url+'/3/genre/movie/list?api_key='+api_key).then(res=> {
         setGenres(res.data.genres)
+        setGenresIsLoading(false)
       }).catch(err =>{
         console.log(err)
       })
@@ -120,7 +135,10 @@ const getDetailById=(showtype,id)=> {
       nowPlaying,
       searchResults,
       searchResultsIsLoading,
+      trendingMovies,
+      trendingMoviesIsLoading,
       getNowPlaying,
+      getTrendingMovies,
       getPopularMovies,
       getMovies,
       getDetailById,

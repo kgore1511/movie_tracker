@@ -15,7 +15,7 @@ export default function Person({data}) {
             </div>
         { data &&
         <div className='person_detail'>
-             <div className='detail_title'>{data.name}</div>
+             <div className='detail_title' >{data.name}</div>
              <div>{data.birthday}</div>
              <div><div className='genre'>{data.known_for_department}</div></div>
              <div>{data.place_of_birth}</div>
@@ -29,8 +29,12 @@ export default function Person({data}) {
         <div className='person_shows'>
             {
                 data?.credits?.cast.map(i=> (
+                    <div>
                     <div className='person_image_card' onClick={()=>(route.push('/movie/'+i.id))}>
                         <Image fill src={i.poster_path? 'http://image.tmdb.org/t/p/w500/'+i.poster_path:noImage} />
+                       
+                    </div>
+                    <div style={{textAlign:'center',fontWeight:'600'}}>{i.title}</div>
                     </div>
                 ))
             }

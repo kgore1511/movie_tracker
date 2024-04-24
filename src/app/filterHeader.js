@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 export default function filterHeader() {
-    const [scrollDirection, setScrollDirection] = useState(null);
+    const [scrollDirection, setScrollDirection] = useState("up");
 
     useEffect(() => {
         let lastScrollY = window.pageYOffset;

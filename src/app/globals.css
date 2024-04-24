@@ -18,6 +18,12 @@ body {
   padding-top: 64px;
 }
 
+@media only screen and (max-width: 600px) { 
+  body {
+    padding-top: 119px;
+  }
+}
+
 
 @layer utilities {
   .text-balance {
