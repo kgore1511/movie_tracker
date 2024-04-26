@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import SearchIcon from '@mui/icons-material/Search';
 import './styles.css'
-import  {InputAdornment, Select}  from '@mui/material';
+import  {CircularProgress, InputAdornment, Select}  from '@mui/material';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import Image from 'next/image';
@@ -53,8 +53,9 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
 
 export const Searchbar=()=> {
   const [visible,setVisible] = useState(false)
+  const [keyword,setKeyword] = useState('')
   const router = useRouter()
-    const {getSearchResult,searchResults} = useGlobalContext()
+    const {getSearchResult,searchResults,searchResultsIsLoading} = useGlobalContext()
     const searchTypeRef=React.useRef('multi')
   function debounce(func, delay) {
     let timeoutId;
@@ -63,13 +64,12 @@ export const Searchbar=()=> {
       timeoutId = setTimeout(() => {
         func(...args);
       }, delay);
-    };
+    }
   }
- 
 
   
   const searchHandler=debounce((e)=> {
-    getSearchResult(searchTypeRef.current.value,e.target.value)
+    getSearchResult(searchTypeRef.current.value,keyword)
   },3000)
     return (
         <div className='searchbar'>
@@ -86,8 +86,10 @@ export const Searchbar=()=> {
             <StyledInputBase
             fullWidth={true}
               placeholder="Search…"
-              id='search_input'
+              className='search_input'
+              value={keyword}
               onChange={(e)=>{
+                setKeyword(e.target.value)
                 searchHandler(e)
                 if(e.target.value.length>0) setVisible(true)
                 else setVisible(false)
@@ -98,25 +100,32 @@ export const Searchbar=()=> {
                 {width:'100% !important'}
               }}
               endAdornment={visible && <InputAdornment position="end"><CloseIcon onClick={()=>{
-                document.getElementById('search_input').value=''
+                setKeyword('')
                 setVisible(false)
               }} sx={{color:'#fff'}} /></InputAdornment>}
             ></StyledInputBase>
           
           {visible && <div id='suggestionbox' className='suggestionbox' >
-            {
-              searchResults?.map((i)=> (
+            
+              {searchResultsIsLoading ? <center><CircularProgress color='inherit' /></center>:
+              searchResults.length==0 ? <center>No Results Found</center>:
+              <div>{searchResults?.map((i)=> (
                 <div className='suggestion_row'>
                 <div> <Image width='50' borderRadius='10px' height='50' src={i.profile_path? 'http://image.tmdb.org/t/p/w500'+i.profile_path:
                 i.poster_path? 'http://image.tmdb.org/t/p/w500'+i.poster_path:
                 noImage} /></div>
-                <div onClick={()=>router.push('/'+i.media_type+'/'+i.id)}>
+                <div onClick={()=>{
+                  setVisible(false)
+                  router.push('/'+i.media_type+'/'+i.id)}
+                }>
                 <div className='search_name' >{i.name?<div> {i.name} </div>:<div>{i.title}</div>}</div>
                 <div className='light_text'>{i.media_type}</div>
                 <div className='light_text'>{i.release_date}</div>
                 </div>
                 </div>
               ))
+            }
+            </div>
             }
           </div>}
           </Search>

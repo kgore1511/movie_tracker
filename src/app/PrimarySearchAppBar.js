@@ -169,7 +169,7 @@ export default function PrimarySearchAppBar() {
           </Typography>
           </div>
           <div className='web_view_search'>
-          <Searchbar id='searchbar' />
+          <Searchbar  />
 </div>
 
           <div>
@@ -218,7 +218,7 @@ export default function PrimarySearchAppBar() {
       <div className='mobile_view_search' sx={{    width: '100%',
     display: 'flex',
     justifyContent: 'center'}}>
-          <Searchbar />
+          <Searchbar id='searchbar_mobile' />
 </div>
       </AppBar>
       {renderMobileMenu}

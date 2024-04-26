@@ -16,7 +16,7 @@ const {movies,movieIsLoading,genres,popularMovies,nowPlaying,nowPlayingIsLoading
   useEffect(()=> {
     getGenres()
     getNowPlaying()
-    //getPopularMovies()
+    getPopularMovies()
  },[])
 useEffect(()=> {
   for(let x=0;x<genres.length && x<2;x++) getMovies(genres[x])

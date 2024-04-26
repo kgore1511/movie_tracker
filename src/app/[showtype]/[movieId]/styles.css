@@ -205,6 +205,11 @@
     position: relative;
 }
 
+.popular_person_name {
+    color:#fff;
+    text-align: center;
+}
+
 @media only screen and (max-width: 600px) { 
     .person {
         display: flex;

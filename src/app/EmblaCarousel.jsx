@@ -1,4 +1,5 @@
 import React from 'react'
+import './mainCarousel/emblamain.css'
 import { Skeleton } from '@mui/material'
 import { redirect ,useRouter} from 'next/navigation'
 import noImage from './[showtype]/[movieId]/no-image-icon.jpg'
@@ -32,18 +33,20 @@ const EmblaCarousel = (props) => {
       <div className='card_header'>
     <div className='header_item'>{Key}</div>
   <div className="embla__controls header_item">
-    <div className="embla__buttons">
-      <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
-      <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
-    </div>
+    
   </div>
   </div>
     
    
   
 <section className="embla">
+<div className="embla__buttons">
+      <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
+      <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
+    </div>
   <div className="embla__viewport" ref={emblaRef}>
     <div className="embla__container">
+   
     {slides[Key]?.length>0 && slides[Key].map((item,index)=> (
       
       <div className="embla__slide" key={index}>
