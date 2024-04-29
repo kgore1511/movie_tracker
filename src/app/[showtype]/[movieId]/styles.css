@@ -131,8 +131,8 @@
 .trending_image_card {
     position: relative;
     margin: 10px;
-    min-width: 100px
-     
+    min-width: 100px;
+    cursor: pointer;
 }
 
 .trending_image {
@@ -277,6 +277,13 @@
     .youtube_player {
         width: 100%;
         height: 20vh;
+    }
+
+    .person_shows {
+        display: grid;
+        justify-content: space-evenly;
+        grid-template-columns: repeat(auto-fill, 155px);
+        grid-gap: 10px;
     }
 
     

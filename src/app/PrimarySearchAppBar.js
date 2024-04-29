@@ -24,9 +24,7 @@ import { useRouter } from 'next/navigation'
 import { Searchbar } from './Searchbar';
 import './styles.css'
 import { Select } from '@mui/material';
-
-
-
+import logo from './logo-no-background.png'
 
 
 
@@ -42,7 +40,7 @@ export default function PrimarySearchAppBar() {
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
  
   const scrollDirection=filterHeader()
-  const router = useRouter()
+  const route = useRouter()
 
 
  
@@ -163,9 +161,9 @@ export default function PrimarySearchAppBar() {
             variant="h6"
             noWrap
             component="div"
-           
+           className='web_logo'
           >
-            MUI
+           <Image style={{cursor:'pointer'}} onClick={()=> route.push('/')} src={logo} />
           </Typography>
           </div>
           <div className='web_view_search'>

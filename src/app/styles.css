@@ -53,6 +53,11 @@
     gap: 10px;
 }
 
+.onhover:hover {
+    backdrop-filter : contrast(0.3);
+    cursor:pointer
+}
+
 
 .MuiInputBase-root {
     width: 100% !important;
@@ -82,6 +87,10 @@
     align-items: center;
 }
 
+.web_logo {
+    width: 150px;
+    position: relative
+}
    
     @media only screen and (max-width: 600px) {
         .container {

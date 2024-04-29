@@ -99,7 +99,7 @@ export const Searchbar=()=> {
                 '& .MuiInputBase-input':
                 {width:'100% !important'}
               }}
-              endAdornment={visible && <InputAdornment position="end"><CloseIcon onClick={()=>{
+              endAdornment={visible && <InputAdornment position="end"><CloseIcon className='onhover' onClick={()=>{
                 setKeyword('')
                 setVisible(false)
               }} sx={{color:'#fff'}} /></InputAdornment>}
@@ -110,14 +110,14 @@ export const Searchbar=()=> {
               {searchResultsIsLoading ? <center><CircularProgress color='inherit' /></center>:
               searchResults.length==0 ? <center>No Results Found</center>:
               <div>{searchResults?.map((i)=> (
-                <div className='suggestion_row'>
-                <div> <Image width='50' borderRadius='10px' height='50' src={i.profile_path? 'http://image.tmdb.org/t/p/w500'+i.profile_path:
-                i.poster_path? 'http://image.tmdb.org/t/p/w500'+i.poster_path:
-                noImage} /></div>
                 <div onClick={()=>{
                   setVisible(false)
                   router.push('/'+i.media_type+'/'+i.id)}
-                }>
+                } className='suggestion_row onhover'>
+                <div> <Image width='50' borderRadius='10px' height='50' src={i.profile_path? 'http://image.tmdb.org/t/p/w500'+i.profile_path:
+                i.poster_path? 'http://image.tmdb.org/t/p/w500'+i.poster_path:
+                noImage} /></div>
+                <div>
                 <div className='search_name' >{i.name?<div> {i.name} </div>:<div>{i.title}</div>}</div>
                 <div className='light_text'>{i.media_type}</div>
                 <div className='light_text'>{i.release_date}</div>

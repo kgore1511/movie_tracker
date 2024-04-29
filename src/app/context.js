@@ -25,9 +25,9 @@ const AppProvider = ({children}) => {
     const api_key=process.env.NEXT_PUBLIC_API_KEY
     
     
-    const getTrendingMovies=(type)=> {
+    const getTrendingMovies=(type,page=1)=> {
       setTrendingMoviesIsLoading(true)
-      axios.get(base_url+'/3/trending/'+type+'/day?language=en-US&api_key='+api_key).then(res=> {
+      axios.get(base_url+'/3/trending/'+type+'/day?language=en-US&api_key='+api_key+'&page='+page).then(res=> {
         setTrendingMovies(res.data)
         setTrendingMoviesIsLoading(false)
       }).catch(err =>{
