@@ -20,14 +20,14 @@ export default function page({params}) {
     useEffect(()=> {
         getGenres()
        
-    },[page])
+    },[])
 
     useEffect(()=> {
         for(let x=0;x<genres.length;x++) {
             if(genres[x].name.toLowerCase()==params.genre) getMovies(genres[x],page)
         }
     
-    },[genres])
+    },[genres,page])
         
 
     return (<>

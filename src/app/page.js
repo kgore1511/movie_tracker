@@ -19,7 +19,7 @@ const {movies,movieIsLoading,genres,popularMovies,nowPlaying,nowPlayingIsLoading
     getPopularMovies()
  },[])
 useEffect(()=> {
-  for(let x=0;x<genres.length && x<2;x++) getMovies(genres[x])
+  for(let x=0;x<genres.length;x++) getMovies(genres[x])
 },[genres])
 
 

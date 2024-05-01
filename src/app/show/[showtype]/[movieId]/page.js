@@ -117,7 +117,7 @@ const opts = {
           <Image  width={0}
   height={0}
   sizes="100vw"
-   src={i.profile_path? 'http://image.tmdb.org/t/p/w500'+i.profile_path:noImage } alt={i.name} />
+   src={i.profile_path? 'http://image.tmdb.org/t/p/w500'+i.profile_path:noImage } loading='lazy' alt={i.name} />
           </div><div className='cast_name'>{i.name}</div></div>    
       ))
       }
