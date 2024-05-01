@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { useGlobalContext } from '../../context'
+import { useGlobalContext } from '../../../context'
 import YouTube from 'react-youtube'
 import { Rating } from '@mui/material'
 import Accordion from '@mui/material/Accordion';
@@ -11,7 +11,7 @@ import Typography from '@mui/material/Typography';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import Image from 'next/image'
-import noImage from './no-image-icon.jpg'
+import noImage from '../../../images/no-image-icon.jpg'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import {Skeleton,Backdrop,CircularProgress} from '@mui/material'
 import Person from './Person'
@@ -24,8 +24,6 @@ useEffect(()=> {
   getDetailById(params.showtype,params.movieId)
   if(params.showtype!='person') getWatchProvider(params.showtype,params.movieId)
 },[])
-
-console.log(detail)
 
 const opts = {
     height: '300',
@@ -61,7 +59,7 @@ const opts = {
       <div className='detail_title'>{detail.title} <span>{detail.release_date} </span></div>
       <div>
       {
-        detail?.genres?.map((genre)=><span className='genre'>{genre.name}</span>)
+        detail?.genres?.map((genre)=><span key={genre.id} className='genre'>{genre.name}</span>)
       }
       </div>
       <div><Rating name="half-rating-read" value={detail.vote_average} readOnly precision={0.2} defaultValue={2} max={10} /></div>
@@ -74,7 +72,7 @@ const opts = {
        
         watchProvider?.IN?.flatrate?.map((i)=> (
           
-             <img className='stream_logo' src={'http://image.tmdb.org/t/p/w500'+i.logo_path}/>
+             <img key={i.logo_path} className='stream_logo' src={'http://image.tmdb.org/t/p/w500'+i.logo_path}/>
           
         ))
         }
@@ -84,7 +82,7 @@ const opts = {
         {
         watchProvider?.IN?.rent?.map((i)=> (
           
-             <img className='stream_logo' src={'http://image.tmdb.org/t/p/w500'+i.logo_path}/>
+             <img key={i.logo_path} className='stream_logo' src={'http://image.tmdb.org/t/p/w500'+i.logo_path}/>
           
         ))
         }
@@ -114,12 +112,12 @@ const opts = {
         <Typography className='cast_detail'>
       {
       detail?.credits?.cast.map(i=> (
-          <div className='celebrity_image_card' onClick={()=>(route.push('/person/'+i.id))}>
+          <div key={i.id} className='celebrity_image_card' onClick={()=>(route.push('/show/person/'+i.id))}>
             <div  className="cast_image">
           <Image  width={0}
   height={0}
   sizes="100vw"
-   src={i.profile_path? 'http://image.tmdb.org/t/p/w500'+i.profile_path:noImage } alt=<Skeleton variant="circular" width='10vh' height={60} />/>
+   src={i.profile_path? 'http://image.tmdb.org/t/p/w500'+i.profile_path:noImage } alt={i.name} />
           </div><div className='cast_name'>{i.name}</div></div>    
       ))
       }
@@ -141,7 +139,7 @@ const opts = {
         <Typography className='cast_detail'>
       {
       detail?.recommendations?.results?.map(i=> (
-          <div className='related_image_card' onClick={()=>(route.push('/movie/'+i.id))}>
+          <div key={i.id} className='related_image_card' onClick={()=>(route.push('/show/movie/'+i.id))}>
             <div className='related_image'>
           <Image  fill  src={'http://image.tmdb.org/t/p/w500'+i.poster_path} alt='loading'/></div>
           <div className='cast_name'>{i.title}</div></div>    
@@ -156,7 +154,7 @@ const opts = {
         
         {
           detail?.reviews?.results?.map((i)=> (
-            <div >
+            <div key={i.id} >
               <div className='user_icon'><AccountCircleIcon />{i.author}</div>
               <div><Rating name="half-rating-read" value={i.author_details.rating} readOnly precision={0.2} defaultValue={2} max={10} /></div>
               <div>{i.content}</div>

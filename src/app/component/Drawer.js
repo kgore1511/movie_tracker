@@ -38,14 +38,14 @@ export default function TemporaryDrawer({toggleDrawer,open,setOpen}) {
         <Image style={{cursor:'pointer'}} src={logo} />
         </ListItem>
           <ListItem  disablePadding>
-            <ListItemButton onClick={()=>route.push('/movie')} >
+            <ListItemButton onClick={()=>route.push('/show/movie')} >
             <ListItemIcon><MovieIcon/></ListItemIcon>
               <ListItemText>Movies</ListItemText>
             </ListItemButton>
             
           </ListItem>
           <ListItem  disablePadding>
-            <ListItemButton onClick={()=>route.push('/person')} >
+            <ListItemButton onClick={()=>route.push('/show/person')} >
             <ListItemIcon><PersonIcon/></ListItemIcon>
               <ListItemText>Person</ListItemText>
             </ListItemButton>

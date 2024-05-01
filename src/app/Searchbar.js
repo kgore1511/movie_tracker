@@ -5,7 +5,7 @@ import  {CircularProgress, InputAdornment, Select}  from '@mui/material';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import Image from 'next/image';
-import noImage from './[showtype]/[movieId]/no-image-icon.jpg'
+import noImage from '../app/images/no-image-icon.jpg'
 import { useGlobalContext } from './context';
 import { useRouter } from 'next/navigation';
 import CloseIcon from '@mui/icons-material/Close';
@@ -74,7 +74,7 @@ export const Searchbar=()=> {
     return (
         <div className='searchbar'>
          <select ref={searchTypeRef} onChange={(e)=>{searchTypeRef.current.value=e.target.value}} className='combobox'>
-         <option selected value='multi'>All</option>
+         <option defaultValue='multi' value='multi'>All</option>
           <option value='movie'>Movies</option>
           <option value='tv'>TV Shows</option>
          </select>
@@ -110,9 +110,9 @@ export const Searchbar=()=> {
               {searchResultsIsLoading ? <center><CircularProgress color='inherit' /></center>:
               searchResults.length==0 ? <center>No Results Found</center>:
               <div>{searchResults?.map((i)=> (
-                <div onClick={()=>{
+                <div key={i.id} onClick={()=>{
                   setVisible(false)
-                  router.push('/'+i.media_type+'/'+i.id)}
+                  router.push('/show/'+i.media_type+'/'+i.id)}
                 } className='suggestion_row onhover'>
                 <div> <Image width='50' borderRadius='10px' height='50' src={i.profile_path? 'http://image.tmdb.org/t/p/w500'+i.profile_path:
                 i.poster_path? 'http://image.tmdb.org/t/p/w500'+i.poster_path:

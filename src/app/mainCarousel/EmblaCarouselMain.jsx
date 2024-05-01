@@ -47,7 +47,7 @@ const EmblaCarouselMain = (props) => {
                 </div>
               
             </div>
-          <div className="embla__slide__number_main" onClick={()=>route.push('/'+item.id)}>
+          <div className="embla__slide__number_main" onClick={()=>route.push('/show/'+item.id)}>
             {item?.poster_path?<img id='img' className='main_image' alt='Loading...'  src={'http://image.tmdb.org/t/p/w500'+item?.backdrop_path} />:
            <p className='title'>{item.titleText?.text}</p>
             }</div>

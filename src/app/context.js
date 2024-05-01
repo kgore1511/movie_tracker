@@ -66,13 +66,13 @@ const getDetailById=(showtype,id)=> {
 
 }
 
-    const getMovies =(genre)=> {
+    const getMovies =(genre,page=1)=> {
       setMovieIsLoading(true)
         axios.request({
             method: 'GET',
-            url: base_url+'/3/discover/movie?api_key='+api_key+'&certification_country=India&include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres='+genre.id+'&with_original_language=hi',
+            url: base_url+'/3/discover/movie?api_key='+api_key+'&certification_country=India&include_adult=false&include_video=false&language=en-US&page='+page+'&sort_by=popularity.desc&with_genres='+genre.id+'&with_original_language=hi',
             }).then(response => {
-              let name=genre.name, movie=response.data.results
+              let name=genre.name, movie=response.data
               setMovies(prev=>({...prev,[name]:movie}))
               setMovieIsLoading(false)
             })

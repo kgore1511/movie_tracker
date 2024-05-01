@@ -29,7 +29,7 @@ const handleClose = () => {
 const handleOpen = () => {
   setOpen(true);
 };
- 
+
   return (
     <>
   
@@ -43,7 +43,7 @@ const handleOpen = () => {
     </div>
     {Object.keys(movies).map(key => (
       
-    <div> <EmblaCarousel slides={movies} Key={key} options={OPTIONS} /></div> 
+    <div key={key}> <EmblaCarousel slides={movies} Key={key} options={OPTIONS} /></div> 
     )
   )}</>
   }

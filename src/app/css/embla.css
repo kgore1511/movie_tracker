@@ -28,6 +28,7 @@
     font-size: 4rem;
     font-weight: 600;
     display: flex;
+    margin: 5px;
     align-items: center;
     justify-content: center;
     height: var(--slide-height);

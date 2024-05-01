@@ -19,7 +19,7 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import  filterHeader from '../app/filterHeader';
 import TemporaryDrawer from './component/Drawer';
 import Image from 'next/image';
-import noImage from './[showtype]/[movieId]/no-image-icon.jpg'
+import noImage from './images/no-image-icon.jpg'
 import { useRouter } from 'next/navigation'
 import { Searchbar } from './Searchbar';
 import './styles.css'
