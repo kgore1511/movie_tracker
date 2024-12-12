@@ -36,9 +36,9 @@ const EmblaCarouselMain = (props) => {
     <section className="embla_main">
       <div className="embla__viewport_main" ref={emblaRef}>
         <div className="embla__container_main">
-          
+        
         {slides?.length>0 &&  slides.filter(isavailable).map((item,index)=> (
-          <div className="embla__slide_main" key={index}>
+          <div className="embla__slide_main" key={index}>  
             <div className='banner'>
               <div className='banner_header'>
                 <div className='banner_title'>{item.title}</div>

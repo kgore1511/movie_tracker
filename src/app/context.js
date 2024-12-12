@@ -27,7 +27,12 @@ const AppProvider = ({children}) => {
     
     const getTrendingMovies=(type,page=1)=> {
       setTrendingMoviesIsLoading(true)
-      axios.get(base_url+'/3/trending/'+type+'/day?language=en-US&api_key='+api_key+'&page='+page).then(res=> {
+      axios.get(base_url+'/3/trending/'+type+'/day?language=en-US&page='+page,{
+          headers: {
+            accept: 'application/json',
+            Authorization: api_key
+          }
+      }).then(res=> {
         setTrendingMovies(res.data)
         setTrendingMoviesIsLoading(false)
       }).catch(err =>{
@@ -37,7 +42,12 @@ const AppProvider = ({children}) => {
     
     const getPopularMovies=()=> {
       setPopularMoviesIsLoading(true)
-      axios.get(base_url+'/3/movie/upcoming?api_key='+api_key+'&language=hi-IN&page=1&region=IN').then(res=> {
+      axios.get(base_url+'/3/movie/upcoming?&language=hi-IN&page=1&region=IN',{
+        headers: {
+          accept: 'application/json',
+          Authorization: api_key
+        }
+      }).then(res=> {
         setPopularMovies(res.data)
         setPopularMoviesIsLoading(false)
       }).catch(err =>{
@@ -47,7 +57,11 @@ const AppProvider = ({children}) => {
 
     const getGenres=()=> {
       setGenresIsLoading(true)
-      axios.get(base_url+'/3/genre/movie/list?api_key='+api_key).then(res=> {
+      axios.get(base_url+'/3/genre/movie/list',{
+        headers: {
+          accept: 'application/json',
+          Authorization: api_key
+        }}).then(res=> {
         setGenres(res.data.genres)
         setGenresIsLoading(false)
       }).catch(err =>{
@@ -57,7 +71,12 @@ const AppProvider = ({children}) => {
 
 const getDetailById=(showtype,id)=> {
   setDetailIsLoading(true)
-  axios.get(base_url+'/3/'+showtype+'/'+id+'?&append_to_response=videos,credits,recommendations,reviews,similiar&api_key='+api_key).then(res =>{
+  axios.get(base_url+'/3/'+showtype+'/'+id+'?&append_to_response=videos,credits,recommendations,reviews,similiar',{
+      headers: {
+        accept: 'application/json',
+        Authorization: api_key
+      }
+  }).then(res =>{
     setDetail(res.data)
     setDetailIsLoading(false)
   }).catch(err => {
@@ -70,7 +89,12 @@ const getDetailById=(showtype,id)=> {
       setMovieIsLoading(true)
         axios.request({
             method: 'GET',
-            url: base_url+'/3/discover/movie?api_key='+api_key+'&certification_country=India&include_adult=false&include_video=false&language=en-US&page='+page+'&sort_by=popularity.desc&with_genres='+genre.id+'&with_original_language=hi',
+            url: base_url+'/3/discover/movie?&certification_country=India&include_adult=false&include_video=false&language=en-US&page='+page+'&sort_by=popularity.desc&with_genres='+genre.id+'&with_original_language=hi',
+            
+              headers: {
+                accept: 'application/json',
+                Authorization: api_key
+              }
             }).then(response => {
               let name=genre.name, movie=response.data
               setMovies(prev=>({...prev,[name]:movie}))
@@ -85,7 +109,11 @@ const getDetailById=(showtype,id)=> {
       setNowPlayingIsLoading(true)
       axios.request({
         method: 'GET',
-        url: base_url+'/3/movie/now_playing?language=en-US&region=IN&page=1&api_key='+api_key
+        url: base_url+'/3/movie/now_playing?language=en-US&region=IN&page=1',
+        headers: {
+          accept: 'application/json',
+          Authorization: api_key
+        }
       }).then(response => {
         setNowPlayingIsLoading(false)
         setNowPlaying(response.data.results)
@@ -98,7 +126,12 @@ const getDetailById=(showtype,id)=> {
       setSearchResultsIsLoading(true)
       axios.request({
         method: 'GET',
-        url: base_url+'/3/search/'+type+'?api_key='+api_key+'&include_adult=false&query='+keyword+'&language=en-US&page=1'
+        url: base_url+'/3/search/'+type+'?&include_adult=false&query='+keyword+'&language=en-US&page=1',
+          headers: {
+            accept: 'application/json',
+            Authorization: api_key
+          }
+        
       }).then(response => {
         setSearchResults(response.data.results)
         setSearchResultsIsLoading(false)
@@ -111,7 +144,12 @@ const getDetailById=(showtype,id)=> {
     setWatchProviderLoading(true)
     axios.request({
       method: 'GET',
-      url: base_url+'/3/'+showtype+'/'+id+'/watch/providers?api_key='+api_key
+      url: base_url+'/3/'+showtype+'/'+id+'/watch/providers',
+          headers: {
+            accept: 'application/json',
+            Authorization: api_key
+          }
+      
     }).then(response => {
       setWatchProviderLoading(false)
       setWatchProvider(response.data.results)
